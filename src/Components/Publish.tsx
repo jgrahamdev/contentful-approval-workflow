@@ -25,6 +25,7 @@ export class Publish extends React.Component<{sdk: SidebarExtensionSDK}> {
     this.state = {
       isOpen: false,
       entrySys: this.props.sdk.entry.getSys(),
+      approvalStatus: this.props.sdk.entry.fields.approvalStatus.getValue() || '',
     }
   }
 
@@ -63,6 +64,7 @@ export class Publish extends React.Component<{sdk: SidebarExtensionSDK}> {
   };
 
   detachSysChangeHandler: Function | null = null;
+  detachApprovalChangeHandler: Function | null = null;
 
   getStatus = () => {
     if (!this.state.entrySys.publishedVersion) {
@@ -102,13 +104,17 @@ export class Publish extends React.Component<{sdk: SidebarExtensionSDK}> {
   }
 
   onExternalSysChange = (value: object) => {
-    this.setState({entrySys: value});
-  };
+    this.setState({entrySys: value})
+  }
 
+  onExternalApprovalChange = (value: string) => {
+    this.setState({approvalStatus: value})
+  }
   componentDidMount = () => {
     this.props.sdk.window.startAutoResizer();
 
     this.detachSysChangeHandler = this.props.sdk.entry.onSysChanged(this.onExternalSysChange);
+    this.detachApprovalChangeHandler = this.props.sdk.entry.fields.approvalStatus.onValueChanged(this.onExternalApprovalChange);
   }
 
   componentDidUpdate = () => {
@@ -128,6 +134,9 @@ export class Publish extends React.Component<{sdk: SidebarExtensionSDK}> {
     if (this.detachSysChangeHandler) {
       this.detachSysChangeHandler();
     }
+    if (this.detachApprovalChangeHandler) {
+      this.detachApprovalChangeHandler();
+    }
   }
 
   render = () => {
@@ -146,6 +155,7 @@ export class Publish extends React.Component<{sdk: SidebarExtensionSDK}> {
               testId="change-state-published"
               onClick={this.onPublish}
               className="primary-publish-button"
+              disabled={!(this.state.approvalStatus === "Ready for Publication")}
             >
               Publish
             </Button>
