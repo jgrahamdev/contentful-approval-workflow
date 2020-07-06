@@ -1,0 +1,39 @@
+/*html,
+body,
+div {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}*/
+
+.publish-buttons-row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.publish-buttons-row .primary-publish-button {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right-width: 0;
+}
+
+.publish-buttons-row .secondary-publish-button {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+/*.approval-dropdown {
+  position: -webkit-sticky;
+  position: sticky;
+  width: 191px;
+}*/
+
+.action-restricted__icon {
+    position: relative;
+    top: 3px;
+    margin-right: 4px;
+}

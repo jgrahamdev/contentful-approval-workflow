@@ -1,0 +1,8 @@
+{
+  "id": "approval-workflow",
+  "name": "approval-workflow",
+  "srcdoc": "./build/index.html",
+  "fieldTypes": [
+    "Symbol"
+  ]
+}
